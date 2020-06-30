@@ -1,0 +1,121 @@
+<?php
+/** @var \Magento\Catalog\Block\Product\View\Details $block */
+
+$product = $block->getProduct();
+
+$detailedInfoGroup = $block->getGroupSortedChildNames('detailed_info', 'getChildHtml');
+
+
+// echo "<pre>@@@";
+// print_r($product);
+?>
+
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+<style>
+	.bs-example{
+    	margin: 20px;
+    }
+</style>
+<div class="bs-example">
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a href="javascript:void(0)" class="nav-link active" id="moreinfo" data-toggle="tab">More Informeation</a>
+        </li>
+        <li class="nav-item">
+            <a href="javascript:void(0)" class="nav-link" id="details" data-toggle="tab">Details</a>
+        </li>
+        <li class="nav-item">
+            <a href="javascript:void(0)" class="nav-link" id="review" data-toggle="tab">Reviews</a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane fade show active" id="home">
+            <p><?php echo $product->getData('more_information'); ?></p>
+        </div>
+        <div class="tab-pane fade" id="profile">
+            <p><?php echo $product->getData('description'); ?></p>
+        </div>
+        <div class="tab-pane fade" id="messages">
+            <p><?php //echo $product->getData('review_form'); ?></p>
+            <div class="block review-add">
+			 <div class="block-title"><strong>Write Your Own Review</strong></div>
+				<div class="block-content">
+				<form action="http://localhost/fotonicia/review/product/post/id/1/" class="review-form" method="post" id="review-form" data-role="product-review-form" data-bind="scope: 'review-form'" novalidate="novalidate">
+				    <input name="form_key" type="hidden" value="V9ubLmgoMOChheQF">        <fieldset class="fieldset review-fieldset" data-hasrequired="* Required Fields">
+				        <legend class="legend review-legend"><span>You're reviewing:</span><strong>Polaroids</strong></legend><br>
+				                <div class="field review-field-nickname required">
+				            <label for="nickname_field" class="label"><span>Nickname</span></label>
+				            <div class="control">
+				                <input type="text" name="nickname" id="nickname_field" class="input-text" data-validate="{required:true}" data-bind="value: nickname()" aria-required="true">
+				            </div>
+				        </div>
+				        <div class="field review-field-summary required">
+				            <label for="summary_field" class="label"><span>Summary</span></label>
+				            <div class="control">
+				                <input type="text" name="title" id="summary_field" class="input-text" data-validate="{required:true}" data-bind="value: review().title" aria-required="true">
+				            </div>
+				        </div>
+				        <div class="field review-field-text required">
+				            <label for="review_field" class="label"><span>Review</span></label>
+				            <div class="control">
+				                <textarea name="detail" id="review_field" cols="5" rows="3" data-validate="{required:true}" data-bind="value: review().detail" aria-required="true"></textarea>
+				            </div>
+				        </div>
+				    </fieldset>
+				    <div class="actions-toolbar review-form-actions">
+				        <div class="primary actions-primary">
+				            <button type="submit" class="action submit primary"><span>Submit Review</span></button>
+				        </div>
+				    </div>
+				</form>
+
+				</div>
+			</div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"> 
+
+require([ 'jquery'], function($){
+
+     $("#details").click(function(){
+     $("#profile").removeClass("fade");
+     $("#profile").addClass("active");
+     $("#home").addClass("fade");
+     $("#messages").addClass("fade"); 
+     $("#home").removeClass("active");
+
+     $("#review").removeClass("active");
+     $("#details").addClass("active");
+  });
+
+
+	$("#review").click(function(){ 
+     $("#moreinfo").removeClass("active");
+     $("#review").addClass("active");
+     $("#details").removeClass("active");
+     
+     $("#messages").removeClass("fade");
+     $("#messages").addClass("active");
+     $("#home").removeClass("active"); 
+     $("#home").addClass("fade"); 
+     $("#profile").addClass("fade"); 
+  });
+
+	$("#moreinfo").click(function(){ 
+     $("#review").removeClass("active");
+     $("#details").removeClass("active");
+     $("#moreinfo").addClass("active");
+     
+     $("#home").removeClass("fade");
+     $("#home").addClass("active");
+     $("#messages").removeClass("active"); 
+     $("#profile").removeClass("active"); 
+  });
+});
+</script>
